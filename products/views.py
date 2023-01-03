@@ -1,3 +1,9 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def index(request):
+    return render(request, 'products/index.html', {'title': 'Главная страница'})
+
+def products(request):
+    return render(request, 'products/products.html', {'title': 'Продукты'})
+
