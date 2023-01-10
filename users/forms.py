@@ -14,7 +14,7 @@ class UserLoginForm(AuthenticationForm):
 
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ('username', 'password')
 
 
 class UserRegistrationForm(UserCreationForm):
