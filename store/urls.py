@@ -19,10 +19,11 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 from products.views import *
+from products.views import IndexView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index, name='home'),
+    path('', IndexView.as_view(), name='home'),
     path('products/', include('products.urls', namespace='products')),
     path('users/', include('users.urls', namespace='users')), # Пока не понял, нужен ли тут namespace, да и вообще.
 ]
