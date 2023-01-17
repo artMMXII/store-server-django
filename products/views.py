@@ -1,37 +1,27 @@
 from django.shortcuts import render, HttpResponseRedirect
-from products.models import *
 from django.contrib.auth.decorators import login_required
-from users.models import *
-from django.core.paginator import Paginator
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 
+from products.models import *
+from common.views import TitleMixin
 
 
-class IndexView(TemplateView):
+class IndexView(TitleMixin, TemplateView):
     template_name = 'products/index.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data()
-        context['title'] = 'Store'
-        return context
+    title = 'Store'
 
 
-class ProductsListView(ListView):
+class ProductsListView(TitleMixin, ListView):
     model = Product
     template_name = 'products/products.html'
     paginate_by = 2
+    title = 'Store - Каталог'
 
     def get_queryset(self):
         queryset = super(ProductsListView, self).get_queryset()
         category_id = self.kwargs.get('category_id')
         return queryset.filter(category_id=category_id) if category_id else queryset
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(ProductsListView, self).get_context_data()
-        context['title'] = 'Store - Каталог'
-        context['categories'] = ProductCategory.objects.all()
-        return context
 
 
 @login_required
