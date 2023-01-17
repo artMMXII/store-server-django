@@ -7,6 +7,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 
 
+
 class IndexView(TemplateView):
     template_name = 'products/index.html'
 
@@ -31,23 +32,6 @@ class ProductsListView(ListView):
         context['title'] = 'Store - Каталог'
         context['categories'] = ProductCategory.objects.all()
         return context
-
-
-
-
-# def products(request, category_id=None, page_number=1):
-#     products = Product.objects.filter(category_id=category_id) if category_id else Product.objects.all()
-#
-#     per_page = 3
-#     paginator = Paginator(products, per_page)
-#     products_paginator = paginator.page(page_number)
-#
-#     context = {
-#         'title': 'Store - Каталог',
-#         'categories': ProductCategory.objects.all(),
-#         'products': products_paginator
-#     }
-#     return render(request, 'products/products.html', context)
 
 
 @login_required
